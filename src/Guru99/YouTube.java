@@ -1,8 +1,11 @@
 package Guru99;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import javax.print.event.PrintEvent;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -12,7 +15,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class YouTube extends StringExample {
 
@@ -25,7 +30,16 @@ public class YouTube extends StringExample {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		options.merge(capabilities);
-		System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+		
+		String home = System.getProperty("user.home");
+		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+		chromePrefs.put("profile.default_content_settings.popups", 0);
+		chromePrefs.put("download.default_directory", home + "\\Downloads\\");
+		
+		chromePrefs.put("browser.setDownloadBehavior", "allow");
+		options.setExperimentalOption("prefs", chromePrefs);  
+				
+		System.setProperty("webdriver.chrome.driver",home + "\\Downloads\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver(options);
 		
 		/*System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
@@ -73,7 +87,7 @@ public class YouTube extends StringExample {
 						break;
 				
 					}}catch(Exception e){
-						System.out.println("NoSuchElementException1");
+						System.err.println("NoSuchElementException1");
 						i++;
 					}						
 										
@@ -85,7 +99,7 @@ public class YouTube extends StringExample {
 						break;
 						
 					}}catch(Exception e){
-						System.out.println("NoSuchElementException2");
+						System.err.println("NoSuchElementException2");
 						i++;
 					}	
 					
@@ -98,7 +112,7 @@ public class YouTube extends StringExample {
 						break;
 						
 					}}catch(Exception e){
-						System.out.println("NoSuchElementException3");
+						System.err.println("NoSuchElementException3");
 						i++;
 					}		
 					
@@ -110,16 +124,17 @@ public class YouTube extends StringExample {
 						break;
 					}}catch(Exception e){
 						System.out.println("NoSuchElementException..");
+						System.err.println("NoSuchElementException..");
 						
 					}		
 					
 					if(j >=3) {
-						System.out.println("entered song not found...quitting");
+						System.err.println("entered song not found...quitting");
 						driver.close();	
 						
 					}
 					else {
-							System.out.println("entered song not found!!!.....Trying again!");
+							System.err.println("entered song not found!!!.....Trying again!");
 							js.executeScript("window.scrollBy(0,4000)");
 							Thread.sleep(10000);
 					}
@@ -135,52 +150,29 @@ public class YouTube extends StringExample {
 			String baseUrl = "https://ytmp3.cc/en/";
 		    
 		    driver.get(baseUrl);
-	
-				Thread.sleep(3000);
-	
-		    //driver.switchTo().alert().dismiss();
-	
+			Thread.sleep(3000);
 		    WebElement url = driver.findElement(By.id("input"));
 		    url.sendKeys(songUrl);
 		    url.submit();
 	
 			Thread.sleep(3000);
-			//driver.switchTo().alert().dismiss();
 		    try{
-		    driver.findElement(By.partialLinkText("Download")).click();
-		    //driver.switchTo().
-		    System.out.println("Download has started....!!!!!");
-		    
-		    Thread.sleep(3000);
-		    
+		//    driver.findElement(By.partialLinkText("Download")).click();
+			  new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"buttons\"]/a[1]"))).click();
+			  System.out.println("Download has started....!!!!!");
+			  System.out.println("File will be saved here: " + home + "\\Downloads\\");
+			  Thread.sleep(3000);
 		    }
 		    catch(Exception e)
 		    {
 		    	System.out.println("entered song not found OR song cannot be downloaded!!!");
 		    	driver.quit();
 		    }
-		    
 		}
-			
 		}
-		
 		else{
 		System.out.println("Please enter a valid song/artist name!!!");
     	driver.quit();
-		
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
 	}
-
-
-
 }
