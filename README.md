@@ -7,7 +7,8 @@ Pre-requisites:
 3. Eclipse IDE
 4. Chrome browser
 
-Set path of chrome driver properly in the file
-Run youtube.java
-Enter the data 
-Let the song be searched and download!!!!
+Steps:
+1. Set path of chrome driver properly in the file
+2. Run youtube.java
+3. Enter the data 
+4. Let the song be searched and download!!!!
