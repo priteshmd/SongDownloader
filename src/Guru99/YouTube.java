@@ -25,7 +25,7 @@ public class YouTube extends StringExample {
 	public static void main(String[] args) throws InterruptedException{
 
 		//To run headless:
-		ChromeOptions options = new ChromeOptions();
+		/*ChromeOptions options = new ChromeOptions();
 		options.addArguments("--headless");
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -40,10 +40,10 @@ public class YouTube extends StringExample {
 		options.setExperimentalOption("prefs", chromePrefs);  
 				
 		System.setProperty("webdriver.chrome.driver",home + "\\Downloads\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver(options);
+		WebDriver driver = new ChromeDriver(options);*/
 		
-		/*System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver(); */
+		System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver(); 
 		
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Enter the Film/Artist name:");
@@ -87,7 +87,7 @@ public class YouTube extends StringExample {
 						break;
 				
 					}}catch(Exception e){
-						System.err.println("NoSuchElementException1");
+						System.err.println("...");
 						i++;
 					}						
 										
@@ -99,7 +99,7 @@ public class YouTube extends StringExample {
 						break;
 						
 					}}catch(Exception e){
-						System.err.println("NoSuchElementException2");
+						System.err.println("...");
 						i++;
 					}	
 					
@@ -112,7 +112,7 @@ public class YouTube extends StringExample {
 						break;
 						
 					}}catch(Exception e){
-						System.err.println("NoSuchElementException3");
+						System.err.println("...");
 						i++;
 					}		
 					
@@ -123,8 +123,8 @@ public class YouTube extends StringExample {
 						s1 = driver.findElement(By.partialLinkText(songName1));
 						break;
 					}}catch(Exception e){
-						System.out.println("NoSuchElementException..");
-						System.err.println("NoSuchElementException..");
+						System.out.println("...");
+						System.err.println("...");
 						
 					}		
 					
@@ -160,8 +160,21 @@ public class YouTube extends StringExample {
 		//    driver.findElement(By.partialLinkText("Download")).click();
 			  new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"buttons\"]/a[1]"))).click();
 			  System.out.println("Download has started....!!!!!");
-			  System.out.println("File will be saved here: " + home + "\\Downloads\\");
+			  Thread.sleep(2000);
+			  System.out.print("Downloading...");
+			  for(int x=0; x <= 6; x++)
+			  {
+				  Thread.sleep(2000);
+				  System.out.print("...");
+				  Thread.sleep(2000);
+			  }
+			  System.out.println("...");
+			  System.out.println("...Please wait while your file completes downloading");
 			  Thread.sleep(3000);
+		//	  System.out.println("File will be saved here: " + home + "\\Downloads\\");
+			  System.out.print("Thank you!!! --- Pritesh");
+			  Thread.sleep(1000);
+			  
 		    }
 		    catch(Exception e)
 		    {
